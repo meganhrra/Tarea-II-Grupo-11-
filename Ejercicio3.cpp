@@ -64,17 +64,20 @@ public:
         // Validar que la URL no este vacia
         if (url == "")
         {
-            cout << "La URL no puede estar vacia. Visita no registrada." << endl;
+            cout << " La URL no puede estar vacia. Visita no registrada." << endl;
             return;
         }
 
+        // Creamos el nodo de la nueva pagina visitada
         Pagina* nueva = new Pagina(url, fechaHora);
 
+        // Si la lista esta vacia, la nueva pagina es cabeza y cola a la vez
         if (cabeza == nullptr)
         {
             cabeza = nueva;
             cola = nueva;
         }
+        // Si ya hay paginas, la enganchamos al final usando el puntero cola
         else
         {
             cola->siguiente = nueva;
@@ -90,9 +93,9 @@ public:
     void mostrarActual()
     {
         if (actual == nullptr)
-            cout << "Pagina actual: (historial vacio)" << endl;
+            cout << " Pagina actual: (historial vacio)" << endl;
         else
-            cout << "Pagina actual: " << actual->url << " (" << actual->fechaHora << ")" << endl;
+            cout << " Pagina actual: " << actual->url << " (" << actual->fechaHora << ")" << endl;
     }
 
     // Mueve la pagina actual una posicion hacia atras
@@ -100,18 +103,18 @@ public:
     {
         if (actual == nullptr)
         {
-            cout << "El historial esta vacio." << endl;
+            cout << " El historial esta vacio." << endl;
             return;
         }
 
         if (actual->anterior == nullptr)
         {
-            cout << "No hay paginas anteriores." << endl;
+            cout << " No hay paginas anteriores." << endl;
             return;
         }
 
         actual = actual->anterior;
-        cout << "Pagina actual: " << actual->url << " (" << actual->fechaHora << ")" << endl;
+        cout << " Pagina actual: " << actual->url << " (" << actual->fechaHora << ")" << endl;
     }
 
     // Mueve la pagina actual una posicion hacia adelante
@@ -119,18 +122,18 @@ public:
     {
         if (actual == nullptr)
         {
-            cout << "El historial esta vacio." << endl;
+            cout << " El historial esta vacio." << endl;
             return;
         }
 
         if (actual->siguiente == nullptr)
         {
-            cout << "No hay paginas siguientes." << endl;
+            cout << " No hay paginas siguientes." << endl;
             return;
         }
 
         actual = actual->siguiente;
-        cout << "Pagina actual: " << actual->url << " (" << actual->fechaHora << ")" << endl;
+        cout << " Pagina actual: " << actual->url << " (" << actual->fechaHora << ")" << endl;
     }
 
     // Muestra las URLs numeradas, para elegir cual eliminar por su numero
@@ -138,17 +141,18 @@ public:
     {
         if (cabeza == nullptr)
         {
-            cout << "El historial esta vacio." << endl;
+            cout << " El historial esta vacio." << endl;
             return;
         }
 
-        cout << "URLs en el historial:" << endl;
+        cout << " URLs en el historial:" << endl;
+
         Pagina* temp = cabeza;
         int n = 1;
         while (temp != nullptr)
         {
             // Mostramos la fecha y hora para distinguir visitas repetidas
-            cout << " " << n << ". " << temp->url << " (" << temp->fechaHora << ")" << endl;
+            cout << "   " << n << ". " << temp->url << " (" << temp->fechaHora << ")" << endl;
             temp = temp->siguiente;
             n++;
         }
@@ -201,7 +205,7 @@ public:
     {
         if (posicion < 1 || posicion > contarPaginas())
         {
-            cout << "Numero invalido." << endl;
+            cout << " Numero invalido." << endl;
             return;
         }
 
@@ -212,7 +216,7 @@ public:
 
         string urlBorrada = temp->url;
         desenlazar(temp);
-        cout << "URL " << urlBorrada << " eliminada del historial." << endl;
+        cout << " URL " << urlBorrada << " eliminada del historial." << endl;
     }
 
     // Recorre el historial desde la ultima visita hasta la primera
@@ -220,16 +224,16 @@ public:
     {
         if (cola == nullptr)
         {
-            cout << "El historial esta vacio." << endl;
+            cout << " El historial esta vacio." << endl;
             return;
         }
 
-        cout << "\nHistorial (de la ultima a la primera visita):" << endl;
+        cout << " >> HISTORIAL (de la ultima a la primera visita)" << endl;
 
         Pagina* temp = cola;
         while (temp != nullptr)
         {
-            cout << temp->url << " (" << temp->fechaHora << ")" << endl;
+            cout << "   " << temp->url << " (" << temp->fechaHora << ")" << endl;
             temp = temp->anterior;
         }
     }
@@ -254,21 +258,30 @@ int main()
     string url;
 
     // Datos de prueba para arrancar con un historial de ejemplo
-    navegador.insertarVisita("uapa.edu.do", "22/05/2026 09:00");
-    navegador.insertarVisita("google.com", "22/05/2026 09:05");
-    navegador.insertarVisita("youtube.com", "22/05/2026 09:10");
+    navegador.insertarVisita("uapa.edu.do", "16/05/2026 09:00");
+    navegador.insertarVisita("google.com", "16/05/2026 09:05");
+    navegador.insertarVisita("youtube.com", "16/05/2026 09:10");
 
     do
     {
-        cout << "\n--- MENU DEL HISTORIAL ---" << endl;
+        // Menu con marco para una presentacion mas ordenada y clara
+        cout << "\n==================================================" << endl;
+        cout << "            NAVEGADOR - HISTORIAL WEB" << endl;
+        cout << "==================================================" << endl;
+
+        // Mostramos la pagina donde esta parado el usuario
         navegador.mostrarActual();
-        cout << "1. Registrar nueva visita" << endl;
-        cout << "2. Ir hacia atras" << endl;
-        cout << "3. Ir hacia adelante" << endl;
-        cout << "4. Eliminar una URL" << endl;
-        cout << "5. Mostrar historial (orden inverso)" << endl;
-        cout << "0. Salir" << endl;
-        cout << "Seleccione una opcion: ";
+
+        cout << "--------------------------------------------------" << endl;
+        cout << "   [1] Registrar nueva visita" << endl;
+        cout << "   [2] Ir hacia atras" << endl;
+        cout << "   [3] Ir hacia adelante" << endl;
+        cout << "   [4] Eliminar una URL" << endl;
+        cout << "   [5] Mostrar historial (orden inverso)" << endl;
+        cout << "   [0] Salir" << endl;
+        cout << "==================================================" << endl;
+
+        cout << " Seleccione una opcion: ";
         cin >> opcion;
 
         // Si el usuario escribe algo que no es un numero, cin falla.
@@ -277,27 +290,32 @@ int main()
         {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Entrada invalida. Debe ingresar un numero." << endl;
+            cout << " Entrada invalida. Debe ingresar un numero." << endl;
             continue;
         }
+
         cin.ignore();
 
         switch (opcion)
         {
             case 1:
-                cout << "URL visitada: ";
+                cout << " >> REGISTRAR NUEVA VISITA" << endl;
+                cout << " URL visitada (escriba 0 para cancelar): ";
                 getline(cin, url);
+
+                // El usuario puede arrepentirse: si escribe 0 o deja vacio,
+                // cancelamos el registro y volvemos al menu principal.
+                if (url == "0" || url == "")
+                {
+                    cout << " Registro cancelado. Volviendo al menu." << endl;
+                }
                 // Cada visita se registra con la fecha y hora del momento,
                 // ya que siempre se agrega al final como la mas reciente.
-                if (url != "")
+                else
                 {
                     string ahora = fechaHoraActual();
                     navegador.insertarVisita(url, ahora);
-                    cout << "URL " << url << " registrada con fecha y hora actual (" << ahora << ")." << endl;
-                }
-                else
-                {
-                    cout << "La URL no puede estar vacia. Visita no registrada." << endl;
+                    cout << " URL " << url << " registrada con fecha y hora actual (" << ahora << ")." << endl;
                 }
                 break;
             case 2:
@@ -307,17 +325,24 @@ int main()
                 navegador.irAdelante();
                 break;
             case 4:
+                cout << " >> ELIMINAR UNA URL" << endl;
                 navegador.mostrarURLsNumeradas();
                 if (navegador.contarPaginas() > 0)
                 {
-                    cout << "Numero de la URL a eliminar: ";
+                    cout << " Numero de la URL a eliminar (0 para cancelar): ";
                     cin >> numURL;
 
                     if (cin.fail())
                     {
                         cin.clear();
                         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                        cout << "Entrada invalida. Debe ingresar un numero." << endl;
+                        cout << " Entrada invalida. Debe ingresar un numero." << endl;
+                    }
+                    // Si el usuario ya no quiere borrar, escribe 0 y volvemos al menu
+                    else if (numURL == 0)
+                    {
+                        cin.ignore();
+                        cout << " Eliminacion cancelada. Volviendo al menu." << endl;
                     }
                     else
                     {
@@ -330,11 +355,15 @@ int main()
                 navegador.mostrarInverso();
                 break;
             case 0:
-                cout << "Cerrando el navegador." << endl;
+                cout << " Cerrando el navegador." << endl;
                 break;
             default:
-                cout << "Opcion invalida." << endl;
+                cout << " Opcion invalida." << endl;
         }
+
+        // Linea en blanco despues de cada accion, para que el resultado
+        // no se pegue con el menu que vuelve a aparecer. Asi cada bloque respira.
+        cout << endl;
 
     } while (opcion != 0);
 
