@@ -264,7 +264,6 @@ int main()
 
     do
     {
-        // Menu con marco para una presentacion mas ordenada y clara
         cout << "\n==================================================" << endl;
         cout << "            NAVEGADOR - HISTORIAL WEB" << endl;
         cout << "==================================================" << endl;
@@ -361,8 +360,6 @@ int main()
                 cout << " Opcion invalida." << endl;
         }
 
-        // Linea en blanco despues de cada accion, para que el resultado
-        // no se pegue con el menu que vuelve a aparecer. Asi cada bloque respira.
         cout << endl;
 
     } while (opcion != 0);
